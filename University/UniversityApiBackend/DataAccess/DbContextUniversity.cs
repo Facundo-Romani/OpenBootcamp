@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UniversityApiBackend.Models;
+using UniversityApiBackend.Models.DataModels;
 
 namespace UniversityApiBackend.DataAccess
 {

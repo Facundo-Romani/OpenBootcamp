@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using UniversityApiBackend.Models.DataModels;
 
-namespace UniversityApiBackend.Models
+namespace UniversityApiBackend.Models.DataModels
 {
     public enum Level
     {
