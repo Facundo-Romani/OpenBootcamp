@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using UniversityApiBackend.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Conexión a DB.
+const string ConnectionDB = "DbUniversidad";
+var connectionString = builder.Configuration.GetConnectionString(ConnectionDB);
+
+// Add Context.
+builder.Services.AddDbContext<DbContextUniversity>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 

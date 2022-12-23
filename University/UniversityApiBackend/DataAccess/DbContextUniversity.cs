@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UniversityApiBackend.Models;
 
 namespace UniversityApiBackend.DataAccess
 {
