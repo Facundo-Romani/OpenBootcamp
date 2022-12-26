@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Models.DataModels;
+using UniversityApiBackend.Service;
 
 namespace UniversityApiBackend.Controllers
 {
@@ -15,10 +16,12 @@ namespace UniversityApiBackend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DbContextUniversity _context;
+        private readonly IUserServices _userService;
 
-        public UsersController(DbContextUniversity context)
+        public UsersController(DbContextUniversity context, IUserServices userService)
         {
             _context = context;
+            _userService = userService;
         }
 
         // GET: https://localhost:7045/api/Users/1
@@ -28,8 +31,7 @@ namespace UniversityApiBackend.Controllers
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Users/5
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -39,11 +41,11 @@ namespace UniversityApiBackend.Controllers
                 return NotFound();
             }
 
-            return user;  
+            return user;
         }
 
         // PUT: https://localhost:7045/api/Users/1
-        [HttpPut("{id}")]
+        [HttpPut("UpdateUser/{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
@@ -83,7 +85,7 @@ namespace UniversityApiBackend.Controllers
         }
 
         // DELETE: https://localhost:7045/api/Users/1
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -100,7 +102,20 @@ namespace UniversityApiBackend.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);  
+            return _context.Users.Any(e => e.Id == id);
+        }
+
+        [HttpGet("GetByEmail/{email}")]
+        public async Task<ActionResult> FiltroUsuarioEmail(string email)
+        {
+            if (email is null)
+            {
+                return NotFound();
+            }
+
+            var usuarioEmail = await _userService.GetUserEmail(email);
+
+            return Ok(usuarioEmail);
         }
     }
 }
