@@ -5,10 +5,10 @@ using UniversityApiBackend.Service;
 
 namespace UniversityApiBackend.Services
 {
-    public class UserServices : IUserServices
+    public class UserService : IUserService
     {
         private readonly DbContextUniversity _context;
-        public UserServices(DbContextUniversity context)
+        public UserService(DbContextUniversity context)
         {
             _context = context;
         }

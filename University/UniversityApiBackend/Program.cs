@@ -11,7 +11,8 @@ var connectionString = builder.Configuration.GetConnectionString(ConnectionDB);
 
 // Add Context.
 builder.Services.AddDbContext<DbContextUniversity>(options => options.UseSqlServer(connectionString));
-builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 // Add services to the container.
 

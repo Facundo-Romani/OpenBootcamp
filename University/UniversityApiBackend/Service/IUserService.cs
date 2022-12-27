@@ -2,7 +2,7 @@
 
 namespace UniversityApiBackend.Service
 {
-    public interface IUserServices
+    public interface IUserService
     {
        Task<User> GetUserEmail(string email);
     }

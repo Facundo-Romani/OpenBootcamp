@@ -16,9 +16,9 @@ namespace UniversityApiBackend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DbContextUniversity _context;
-        private readonly IUserServices _userService;
+        private readonly IUserService _userService;
 
-        public UsersController(DbContextUniversity context, IUserServices userService)
+        public UsersController(DbContextUniversity context, IUserService userService)
         {
             _context = context;
             _userService = userService;
