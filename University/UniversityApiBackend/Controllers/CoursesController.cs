@@ -76,19 +76,11 @@ namespace UniversityApiBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
-            try
-            {
-                _context.Courses.Add(course);
-                await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetCourse", new { id = course.Id }, course);
-            }
-            catch (Exception ex)
-            {
+            _context.Courses.Add(course);
+            await _context.SaveChangesAsync();
 
-                throw ex;
-            }
-            
+            return CreatedAtAction("GetCourse", new { id = course.Id }, course);
         }
 
         // DELETE: api/Courses/5

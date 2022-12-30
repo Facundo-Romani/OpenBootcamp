@@ -39,17 +39,40 @@ namespace UniversityApiBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> AddCategory(Category category)
         {
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetById", new { id = category.Id }, category);
+        }
+
+        [HttpPut("UpdateCategory/{id}")]
+        public async Task<ActionResult<Category>> UpdateCategory(int id, Category category)
+        {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(category).State = EntityState.Modified;
+
             try
             {
-                _context.Categories.Add(category);
                 await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetById", new { id = category.Id }, category);
             }
-            catch (Exception ex)
+            catch (DbUpdateConcurrencyException)
             {
-                throw ex;
+                if (!CategoryExists(id))
+                {
+                    return NotFound();
+                }
+                throw;
             }
+            return NoContent();
+        }
+
+        private bool CategoryExists(int id)
+        {
+            return _context.Categories.Any(e => e.Id == id);
         }
     }
 }
